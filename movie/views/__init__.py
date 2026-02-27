@@ -1,1 +1,1 @@
-from .movie_views import MovieViewSet
+from .movie_views import MovieView
