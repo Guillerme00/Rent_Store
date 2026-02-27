@@ -12,8 +12,8 @@ class Movie(models.Model):
         ],
         blank=False
     )
-    genre = models.ManyToManyField(Genre)
-    avaliable_quantity = models.IntegerField(
+    genres = models.ManyToManyField(Genre)
+    available_quantity = models.IntegerField(
         validators=[
             MinValueValidator(0)
         ],
@@ -22,4 +22,4 @@ class Movie(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.title
