@@ -16,3 +16,6 @@ class MovieView(APIView):
             serializer.save() #Creating or saving
             return Response(serializer.data, status=201) #Everything alright
         return Response(serializer.errors, status=400) #Error
+    
+    def put (self, request, pk):
+        
