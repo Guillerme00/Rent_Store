@@ -17,5 +17,24 @@ class MovieView(APIView):
             return Response(serializer.data, status=201) #Everything alright
         return Response(serializer.errors, status=400) #Error
     
-    def put (self, request, pk):
+    def put(self, request, pk):
+        try:
+            movie = Movie.objects.get(pk=pk)
+        except Movie.DoesNotExist:
+            return Response({"Error": "Movie not found"}, status=404)
         
+        serializer = MovieSerializer(movie, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    
+    def delete(self, request, pk):
+        try:
+            movie = Movie.objects.get(pk=pk)
+        except Movie.DoesNotExist:
+            return Response({"Error":"Movie not found"}, status=404)
+
+        movie.delete()
+        return Response(status=204)
