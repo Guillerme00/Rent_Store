@@ -4,7 +4,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 class MovieView(APIView):
-    def get(self, request):
+    def get(self, request, pk=None):
+        if pk: #Search just a movie
+            try:
+                movie = Movie.objects.get(pk=pk)
+            except Movie.DoesNotExist:
+                return Response({"Error":"Movie not found"}, status=404)
+            serializer = MovieSerializer(movie)
+            return Response(serializer.data)
+
         querryset = Movie.objects.all() #Request to get all the movies from DB
         serializer = MovieSerializer(querryset, many = True) #Converting model instances into native Python data types (dict/list)
         return Response(serializer.data) #Returning this python object as a JSON file
