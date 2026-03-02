@@ -21,6 +21,7 @@ class RentalModel(models.Model):
     rental_day = models.DateTimeField(auto_now_add=True, blank=False)
     return_day = models.DateTimeField(default=default_return_day)
     returned = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.customer} - {self.movie}"
