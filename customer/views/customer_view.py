@@ -1,24 +1,24 @@
-from ..models import Movie
-from ..serializers import MovieSerializer
+from ..models import Customer
+from ..serializers import CustomerSerialiizer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-class MovieView(APIView):
+class CustomerView(APIView):
     def get(self, request, pk=None):
         if pk: #Search just a movie
             try:
-                movie = Movie.objects.get(pk=pk)
-            except Movie.DoesNotExist:
+                movie = Customer.objects.get(pk=pk)
+            except Customer.DoesNotExist:
                 return Response({"Error":"Movie not found"}, status=404)
-            serializer = MovieSerializer(movie)
+            serializer = CustomerSerialiizer(movie)
             return Response(serializer.data)
 
-        querryset = Movie.objects.all() #Request to get all the movies from DB
-        serializer = MovieSerializer(querryset, many = True) #Converting model instances into native Python data types (dict/list)
+        querryset = Customer.objects.all() #Request to get all the movies from DB
+        serializer = CustomerSerialiizer(querryset, many = True) #Converting model instances into native Python data types (dict/list)
         return Response(serializer.data) #Returning this python object as a JSON file
     
     def post(self, request):
-        serializer = MovieSerializer(data=request.data) #Converting JSON in a model instance
+        serializer = CustomerSerialiizer(data=request.data) #Converting JSON in a model instance
         if serializer.is_valid(): #Verifing if is valid
             serializer.save() #Creating or saving
             return Response(serializer.data, status=201) #Everything alright
@@ -26,11 +26,11 @@ class MovieView(APIView):
     
     def put(self, request, pk):
         try:
-            movie = Movie.objects.get(pk=pk)
-        except Movie.DoesNotExist:
+            movie = Customer.objects.get(pk=pk)
+        except Customer.DoesNotExist:
             return Response({"Error": "Movie not found"}, status=404)
         
-        serializer = MovieSerializer(movie, data=request.data)
+        serializer = CustomerSerialiizer(movie, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -39,8 +39,8 @@ class MovieView(APIView):
     
     def delete(self, request, pk):
         try:
-            movie = Movie.objects.get(pk=pk)
-        except Movie.DoesNotExist:
+            movie = Customer.objects.get(pk=pk)
+        except Customer.DoesNotExist:
             return Response({"Error":"Movie not found"}, status=404)
 
         movie.delete()

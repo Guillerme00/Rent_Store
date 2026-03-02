@@ -1,5 +1,6 @@
 [project]
-name = "rent-a-movie"
+package-mode = false
+name = "RENT_STORE"
 version = "0.1.0"
 description = ""
 authors = [
