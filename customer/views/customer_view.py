@@ -9,7 +9,7 @@ class CustomerView(APIView):
             try:
                 movie = Customer.objects.get(pk=pk)
             except Customer.DoesNotExist:
-                return Response({"Error":"Movie not found"}, status=404)
+                return Response({"Error":"Customer not found"}, status=404)
             serializer = CustomerSerialiizer(movie)
             return Response(serializer.data)
 
@@ -28,7 +28,7 @@ class CustomerView(APIView):
         try:
             movie = Customer.objects.get(pk=pk)
         except Customer.DoesNotExist:
-            return Response({"Error": "Movie not found"}, status=404)
+            return Response({"Error": "Customer not found"}, status=404)
         
         serializer = CustomerSerialiizer(movie, data=request.data)
 
@@ -39,9 +39,9 @@ class CustomerView(APIView):
     
     def delete(self, request, pk):
         try:
-            movie = Customer.objects.get(pk=pk)
+            customer = Customer.objects.get(pk=pk)
         except Customer.DoesNotExist:
-            return Response({"Error":"Movie not found"}, status=404)
+            return Response({"Error":"Customer not found"}, status=404)
 
-        movie.delete()
+        customer.delete()
         return Response(status=204)

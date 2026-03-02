@@ -9,7 +9,7 @@ class RentalView(APIView):
             try:
                 movie = RentalModel.objects.get(pk=pk)
             except RentalModel.DoesNotExist:
-                return Response({"Error":"Movie not found"}, status=404)
+                return Response({"Error":"Rental not found"}, status=404)
             serializer = RentSerializer(movie)
             return Response(serializer.data)
 
@@ -28,7 +28,7 @@ class RentalView(APIView):
         try:
             movie = RentalModel.objects.get(pk=pk)
         except RentalModel.DoesNotExist:
-            return Response({"Error": "Movie not found"}, status=404)
+            return Response({"Error": "Rental not found"}, status=404)
         
         serializer = RentSerializer(movie, data=request.data)
 
@@ -39,9 +39,9 @@ class RentalView(APIView):
     
     def delete(self, request, pk):
         try:
-            movie = RentalModel.objects.get(pk=pk)
+            rental = RentalModel.objects.get(pk=pk)
         except RentalModel.DoesNotExist:
-            return Response({"Error":"Movie not found"}, status=404)
+            return Response({"Error":"Rental not found"}, status=404)
 
-        RentalModel.delete()
+        rental.delete()
         return Response(status=204)
