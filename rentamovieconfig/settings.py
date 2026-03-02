@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "movie",
     "customer",
     "rest_framework",
+    "order",
 ]
 
 MIDDLEWARE = [

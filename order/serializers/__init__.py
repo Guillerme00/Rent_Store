@@ -1,0 +1,1 @@
+from .rental_serializer import RentSerializer
